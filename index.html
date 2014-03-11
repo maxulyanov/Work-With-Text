@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Сервис для работы с текстом - M.Ulyanov</title>
+<link href="css/style.css" type="text/css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="js/scripts.js"></script>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div id="wrapper">
+        <h2>Сервис для работы с текстом</h2>
+        <form id="form-action" action="#">
+            <div id="form-action-left">
+                <p><textarea></textarea></p>
+            </div>
+            <div id="form-action-right">
+                <h2>Настройки:</h2>
+                <p>
+                    <label for="tolower">Перевести текст в нижний регистр</label>
+                    <input id="tolower" type="checkbox">
+                </p>
+                <p>
+                    <label for="toupper">Перевести текст в верхний регистр</label>
+                    <input id="toupper" type="checkbox">
+                </p>
+                <p>
+                    <label for="charAt">Каждое слово с большой буквы</label>
+                    <input id="charAt" type="checkbox">
+                </p>
+            </div>
+            <button type="input" id="go">Посчитать</button>
+        </form>
+        <div id="result">
+            <h2>Результат:</h2>
+        </div>
+    </div>
+</body>
+</html>
+
