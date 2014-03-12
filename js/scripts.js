@@ -4,21 +4,39 @@ $(function(){
     var spanS = $('<span>Знаков c пробелами: </span>');
     var spanN = $('<span>Знаков без пробелами: </span>');
     var spanW = $('<span>Слов: </span>');
+    var spanUW = $('<span>Уникальных слов: </span>');
+    var spanO = $('<span>Предложений: </span>');
+    var spanSN = $('<span>Пробелов: </span>');
+    var spanCN = $('<span>Запятых: </span>');
+    ok();
 
     //Действие
     $('#go').on('click', function(){
         var val = $('textarea').val();
+        var croplen = $('#CropLenTxt').val();
         if(val == ' ' || val == false){
-            alert('Введите текст!');
+            overlay();
             return false;
         }
+        $('#result').css('top', '-150px')
+
         var noSpaces = val.length;
         var spaces = val.replace(/ /g, "").length;
         var words = val;
         words = words.replace(/\r\n?|\n/g, ' ')
         .replace(/ {2,}/g, ' ').replace(/^ /, '').replace(/ $/, '');
         words = words.split(' ').length;
-  
+        var offer = val;
+        offer = offer.split('.').length;
+        var uniqueElem = val;
+        uniqueElem = uniqueElem.split(' ');
+        var finalUnique = unique(uniqueElem);
+        finalUnique = finalUnique.length;
+        var sp = val;
+        var spacesN = lenSpan(sp);
+        var com = val;
+        var comNFinal = comN(com);
+
         reset();
 
         //Добавление результатов  
@@ -28,12 +46,36 @@ $(function(){
         $(spanN).appendTo(result)
         $(spanW).append('<strong>' + words + '</strong>');
         $(spanW).appendTo('#result')
+        $(spanUW).append('<strong>' + finalUnique + '</strong>');
+        $(spanUW).appendTo('#result')
+        $(spanO).append('<strong>' +  offer + '</strong>');
+        $(spanO).appendTo('#result')
+        $(spanSN).append('<strong>' +  spacesN + '</strong>');
+        $(spanSN).appendTo('#result')
+        $(spanCN).append('<strong>' +  comNFinal + '</strong>');
+        $(spanCN).appendTo('#result')
 
+        $('#result').animate({
+            top : '0px'
+        }, 800)
 
         if($('#tolower').prop("checked")) makeToLower(val);
         if($('#toupper').prop("checked")) makeToUpper(val);
         if($('#charAt').prop("checked")) makecharAt(val);
+        if($('#cropTxt').prop("checked"))makeCrop(val, croplen);
 
+
+    });
+
+    //Сброс
+    $('#reset').on('click', function(){
+        $('#result').css('top', '-150px');
+    });
+    
+
+    //Закрыть затемнение
+     $('#ok').on('click', function(){
+        ok();
     });
 
     //Проверка чекбоксов на противоречия
@@ -51,6 +93,13 @@ $(function(){
             $('#tolower').removeAttr('disabled')
         }
     })
+
+    //Ввод только целых чисел
+    $('#CropLenTxt').bind("change keyup input click", function() {
+        if(this.value.match(/[^0-9]/g)){
+        this.value = this.value.replace(/[^0-9]/g, '');
+        }
+    });
 
     //Функции
     function makeToLower(val){
@@ -77,5 +126,51 @@ $(function(){
 
     function reset(){
         $(document).find('#result span, #result strong').remove();
+    };
+
+    function makeCrop(val, croplen){
+        $('textarea').val(val.substr(0,croplen));
+    };
+
+    function unique(arr){
+        var obj = {};
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i] == ''){
+                delete arr[i];
+            }
+            else{
+                var str = arr[i].toLowerCase();
+                obj[str] = true;
+            }
+        }
+        return Object.keys(obj);
+    };
+
+    function lenSpan(sp){
+        return sp.split(' ').length-1;
     }
+
+    function comN(com){
+        return com.split(',').length-1;
+    }
+
+    function overlay(){
+        $('#overlay').animate({
+            'opacity': '0.4',
+            'z-index' : '4'
+        }, 200)
+        $('#overcontent').animate({
+            'opacity': '1',
+            'z-index' : '5'
+        }, 200)
+    };
+
+    function ok(){
+        $('#overlay, #overcontent').css({
+            'opacity': '0',
+            'z-index' : '0'
+        })
+    };
+
+
 });

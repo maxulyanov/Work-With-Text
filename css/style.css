@@ -31,8 +31,11 @@ a{
     margin: 0 auto;
     font: 14px 'PT Sans', sans-serif;
     color: #FFF;
+    position: relative;
 }
-#wrapper > h2{
+#wrapper > h2,
+#form-action-right h2,
+#overcontent h2{
     font-size: 14px;
     background: #E74C3C;
     padding: 10px 0;
@@ -44,6 +47,9 @@ a{
 #form-action{
     background: #3C3C3C;
     padding: 20px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
 }
 #form-action-left{
     width: 560px;
@@ -64,9 +70,26 @@ a{
     width: 290px;
     float: right;
 }
+#form-action-right h2{
+    background: transparent;
+}
+#form-action-right p{
+    border-bottom: 1px solid rgb(138, 138, 138);
+    padding: 6px 0;
+}
+#form-action-right p input{
+    float: right;
+    margin-top: 4px;
+}
+#form-action-right #CropLenTxt{
+    float: none;
+    width: 50px;
+    padding: 0px 3px;
+    margin: 0 5px;
+}
 #go{
     clear: both;
-    display: block;
+    float: left;
     background: #E74C3C;
     padding: 7px 15px 5px 15px;
     color: #FFF;
@@ -78,14 +101,73 @@ a{
     outline:none;
     border-bottom: 2px solid #D62E1C;
 }
-
+#go:active{
+    background: #CF3525;
+    border-bottom: 2px solid #444444;
+}
+#reset{
+    float: left;
+    margin-left: 370px;
+    margin-top: -5px;
+    background: none;
+    color: #E74C3C;
+    border: none;
+    outline: none;
+    text-decoration: underline;
+    width: 100px;
+    cursor: pointer;
+}
+#reset:hover{
+    color: #FFF;
+}
 #result{
     background: #E74C3C;
     padding: 10px 20px;
     width: 250px;
     border: 3px solid #3C3C3C;
     border-top: none;
+    position: relative;
+    top: -150px;
+}
+#result h2{
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 5px;
 }
 #result span{
     display: block;
+    border-bottom: 1px solid white;
+    padding: 4px 0;
+}
+#result span strong{
+    float: right;
+}
+#overlay{
+    position: absolute;
+    top:0 ;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+#overcontent{
+    position: absolute;
+    top: 37%;
+    left: 24%;
+    z-index: 3;
+}
+#overcontent h2{
+    padding: 10px;
+    box-shadow: 0px 1px 3px #646464;
+}
+#overcontent #ok{
+    display: block;
+    text-align: center;
+    padding: 5px 0;
+    color: black;
+    text-decoration: underline;
+}
+#overcontent #ok:hover{
+    text-decoration: none;
 }

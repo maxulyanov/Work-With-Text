@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <h2>Сервис для работы с текстом</h2>
+        <h2>Анализатор для работы с текстом</h2>
         <form id="form-action" action="#">
             <div id="form-action-left">
                 <p><textarea></textarea></p>
@@ -29,13 +29,24 @@
                     <label for="charAt">Каждое слово с большой буквы</label>
                     <input id="charAt" type="checkbox">
                 </p>
+                 <p>
+                    <label for="cropTxt">Обрезать текст до</label>
+                    <input type="text" id="CropLenTxt" maxlength="6"> символов
+                    <input id="cropTxt" type="checkbox">
+                </p>
             </div>
-            <button type="input" id="go">Посчитать</button>
+            <button type="button" id="go">Посчитать</button>
+            <button type="reset" id="reset">Очистить поле</button>
         </form>
         <div id="result">
-            <h2>Результат:</h2>
+            <h2>Результат анализа:</h2>
+        </div>
+        <div id="overcontent">
+            <h2>Вы ничего не ввели!</h2>
+            <a id="ok" href="#">Попробывать снова</a>
         </div>
     </div>
+    <div id="overlay"</div>
 </body>
 </html>
 
