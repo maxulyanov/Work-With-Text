@@ -63,6 +63,8 @@ $(function(){
         if($('#toupper').prop("checked")) makeToUpper(val);
         if($('#charAt').prop("checked")) makecharAt(val);
         if($('#cropTxt').prop("checked"))makeCrop(val, croplen);
+        if($('#cropTag').prop("checked")){$('textarea').val(makeCropTag(val))};
+        if($('#translate').prop("checked")){$('textarea').val(transliterate(val))};
 
 
     });
@@ -100,6 +102,24 @@ $(function(){
         this.value = this.value.replace(/[^0-9]/g, '');
         }
     });
+
+    //Транслит
+    transliterate =(
+        function(){
+            var
+                rus = "щ   ш  ч  ц  ю  я  ё  ж  ъ  ы  э  а б в г д е з и й к л м н о п р с т у ф х ь".split(/ +/g),
+                eng = "shh sh ch cz yu ya yo zh `` y' e` a b v g d e z i j k l m n o p r s t u f x `".split(/ +/g)
+            ;
+            return function(text, engToRus) {
+                var x;
+                for(x = 0; x < rus.length; x++) {
+                    text = text.split(engToRus ? eng[x] : rus[x]).join(engToRus ? rus[x] : eng[x]);
+                    text = text.split(engToRus ? eng[x].toUpperCase() : rus[x].toUpperCase()).join(engToRus ? rus[x].toUpperCase() : eng[x].toUpperCase()); 
+                }
+                return text;
+            }
+        }
+    )();
 
     //Функции
     function makeToLower(val){
@@ -152,6 +172,10 @@ $(function(){
 
     function comN(com){
         return com.split(',').length-1;
+    }
+
+    function makeCropTag(val){
+        return  val.replace(/<.*?>/g, '');
     }
 
     function overlay(){
