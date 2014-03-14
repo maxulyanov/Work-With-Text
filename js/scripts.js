@@ -1,5 +1,6 @@
 $(function(){
-    //
+
+    //Переменные
     var result = $('#result');
     var spanS = $('<span>Знаков c пробелами: </span>');
     var spanN = $('<span>Знаков без пробелами: </span>');
@@ -13,13 +14,12 @@ $(function(){
     //Действие
     $('#go').on('click', function(){
         var val = $('textarea').val();
-        var croplen = $('#cropLenTxt').val();
         var replaceX = $('#replaceTxt').val();
         if(val == ' ' || val == false){
             overlay();
             return false;
         }
-        $('#result').css('top', '-150px')
+        $('#result').css('top', '-250px')
 
         var noSpaces = val.length;
         var spaces = val.replace(/ /g, "").length;
@@ -60,20 +60,43 @@ $(function(){
             top : '0px'
         }, 800)
 
-        if($('#tolower').prop("checked")) makeToLower(val);
-        if($('#toupper').prop("checked")) makeToUpper(val);
-        if($('#charAt').prop("checked")) makecharAt(val);
-        if($('#cropTxt').prop("checked"))makeCrop(val, croplen);
-        if($('#cropTag').prop("checked")){$('textarea').val(makeCropTag(val))};
-        if($('#translate').prop("checked")){$('textarea').val(transliterate(val))};
-        if($('#replaceSp').prop("checked")){$('textarea').val(makeReplace(val, replaceX))};
+        function fun(){
+            var croplen = $('#cropLenTxt').val();
 
+            var val = $('textarea').val();
+            if($('#tolower').prop("checked")){
+                val = makeToLower(val);
+            };
+            if($('#toupper').prop("checked")){
+                val = makeToUpper(val)
+            };
+            if($('#charAt').prop("checked")){
+                val = makecharAt(val)
+            };
+            if($('#cropTxt').prop("checked")){
+                val = makeCrop(val, croplen)
+            };
+            if($('#cropTag').prop("checked")){
+                val = makeCropTag(val);
+            };
+            if($('#translate').prop("checked")){
+                val = translite(val);
+            };
+            if($('#replaceSp').prop("checked")){
+                val = makeReplace(val, replaceX);
+            };
+
+            $('textarea').val(val);
+        }
+
+        fun();
 
     });
 
+
     //Сброс
     $('#reset').on('click', function(){
-        $('#result').css('top', '-150px');
+        $('#result').css('top', '-250px');
     });
     
 
@@ -81,6 +104,7 @@ $(function(){
      $('#ok').on('click', function(){
         ok();
     });
+
 
     //Проверка чекбоксов на противоречия
     $('input[type="checkbox"]').on('click', function(){
@@ -98,6 +122,7 @@ $(function(){
         }
     })
 
+
     //Ввод только целых чисел
     $('#cropLenTxt').bind("change keyup input click", function() {
         if(this.value.match(/[^0-9]/g)){
@@ -105,8 +130,9 @@ $(function(){
         }
     });
 
+
     //Транслит
-    transliterate =(
+    translite =(
         function(){
             var
                 rus = "щ   ш  ч  ц  ю  я  ё  ж  ъ  ы  э  а б в г д е з и й к л м н о п р с т у ф х ь".split(/ +/g),
@@ -123,13 +149,14 @@ $(function(){
         }
     )();
 
+
     //Функции
     function makeToLower(val){
-        $('textarea').val(val.toLowerCase());
+        return val.toLowerCase();
     };
 
     function makeToUpper(val){
-        $('textarea').val(val.toUpperCase());
+        return val.toUpperCase();
     };
 
     function makecharAt(val){
@@ -142,8 +169,9 @@ $(function(){
             } 
             arr.push(newStr);    
         }
-        arr = arr.join(' ');  
-        $('textarea').val(arr);
+        arr = arr.join(' ');
+        console.log(val)  
+        return arr;
     };
 
     function reset(){
@@ -151,7 +179,10 @@ $(function(){
     };
 
     function makeCrop(val, croplen){
-        $('textarea').val(val.substr(0,croplen));
+        if(croplen == false){
+            return val;
+        } 
+        return val.substr(0,croplen);
     };
 
     function unique(arr){
@@ -177,11 +208,11 @@ $(function(){
     }
 
     function makeCropTag(val){
-        return  val.replace(/<.*?>/g, '');
+        return val.replace(/<.*?>/g, '');
     }
 
     function makeReplace(val, replaceX){
-        return  val.replace(/ /g, replaceX);
+        return val.replace(/ /g, replaceX);
     };
 
     function overlay(){

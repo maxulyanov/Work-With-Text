@@ -128,7 +128,7 @@ a{
     border: 3px solid #3C3C3C;
     border-top: none;
     position: relative;
-    top: -150px;
+    top: -250px;
 }
 #result h2{
     font-size: 14px;
@@ -154,8 +154,8 @@ a{
 }
 #overcontent{
     position: absolute;
-    top: 37%;
-    left: 24%;
+    top: 25%;
+    left: 23%;
     z-index: 3;
 }
 #overcontent h2{
