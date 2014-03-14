@@ -81,7 +81,8 @@ a{
     float: right;
     margin-top: 4px;
 }
-#form-action-right #CropLenTxt{
+#form-action-right #cropLenTxt,
+#form-action-right #replaceTxt{
     float: none;
     width: 50px;
     padding: 0px 3px;

@@ -13,7 +13,8 @@ $(function(){
     //Действие
     $('#go').on('click', function(){
         var val = $('textarea').val();
-        var croplen = $('#CropLenTxt').val();
+        var croplen = $('#cropLenTxt').val();
+        var replaceX = $('#replaceTxt').val();
         if(val == ' ' || val == false){
             overlay();
             return false;
@@ -65,6 +66,7 @@ $(function(){
         if($('#cropTxt').prop("checked"))makeCrop(val, croplen);
         if($('#cropTag').prop("checked")){$('textarea').val(makeCropTag(val))};
         if($('#translate').prop("checked")){$('textarea').val(transliterate(val))};
+        if($('#replaceSp').prop("checked")){$('textarea').val(makeReplace(val, replaceX))};
 
 
     });
@@ -97,7 +99,7 @@ $(function(){
     })
 
     //Ввод только целых чисел
-    $('#CropLenTxt').bind("change keyup input click", function() {
+    $('#cropLenTxt').bind("change keyup input click", function() {
         if(this.value.match(/[^0-9]/g)){
         this.value = this.value.replace(/[^0-9]/g, '');
         }
@@ -177,6 +179,10 @@ $(function(){
     function makeCropTag(val){
         return  val.replace(/<.*?>/g, '');
     }
+
+    function makeReplace(val, replaceX){
+        return  val.replace(/ /g, replaceX);
+    };
 
     function overlay(){
         $('#overlay').animate({
