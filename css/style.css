@@ -101,6 +101,7 @@ a{
     border: none;
     outline:none;
     border-bottom: 2px solid #D62E1C;
+    border-color:  #D62E1C;
 }
 #go:active{
     background: #CF3525;
@@ -154,7 +155,7 @@ a{
 }
 #overcontent{
     position: absolute;
-    top: 25%;
+    top: 35%;
     left: 23%;
     z-index: 3;
 }
