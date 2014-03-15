@@ -13,12 +13,45 @@ $(function(){
 
     //Действие
     $('#go').on('click', function(){
-        var val = $('textarea').val();
-        var replaceX = $('#replaceTxt').val();
+
+        function fun(){
+            var croplen = $('#cropLenTxt').val();
+            var replaceX = $('#replaceTxt').val();
+            var val = $('textarea').val();
+
+            if($('#tolower').prop("checked")){
+                val = makeToLower(val);
+            };
+            if($('#toupper').prop("checked")){
+                val = makeToUpper(val)
+            };
+            if($('#charAt').prop("checked")){
+                val = makecharAt(val)
+            };
+            if($('#cropTxt').prop("checked")){
+                val = makeCrop(val, croplen)
+            };
+            if($('#cropTag').prop("checked")){
+                val = makeCropTag(val);
+            };
+            if($('#translate').prop("checked")){
+                val = translite(val);
+            };
+            if($('#replaceSp').prop("checked")){
+                val = makeReplace(val, replaceX);
+            };
+
+            return val;
+        }
+
+        
+
+        var val = fun();
         if(val == ' ' || val == false){
             overlay();
             return false;
         }
+
         $('#result').css('top', '-250px')
 
         var noSpaces = val.length;
@@ -32,11 +65,12 @@ $(function(){
         var uniqueElem = val;
         uniqueElem = uniqueElem.split(' ');
         var finalUnique = unique(uniqueElem);
-        finalUnique = finalUnique.length;
         var sp = val;
         var spacesN = lenSpan(sp);
         var com = val;
         var comNFinal = comN(com);
+
+        $('textarea').val(val)
 
         reset();
 
@@ -60,36 +94,6 @@ $(function(){
             top : '0px'
         }, 800)
 
-        function fun(){
-            var croplen = $('#cropLenTxt').val();
-
-            var val = $('textarea').val();
-            if($('#tolower').prop("checked")){
-                val = makeToLower(val);
-            };
-            if($('#toupper').prop("checked")){
-                val = makeToUpper(val)
-            };
-            if($('#charAt').prop("checked")){
-                val = makecharAt(val)
-            };
-            if($('#cropTxt').prop("checked")){
-                val = makeCrop(val, croplen)
-            };
-            if($('#cropTag').prop("checked")){
-                val = makeCropTag(val);
-            };
-            if($('#translate').prop("checked")){
-                val = translite(val);
-            };
-            if($('#replaceSp').prop("checked")){
-                val = makeReplace(val, replaceX);
-            };
-
-            $('textarea').val(val);
-        }
-
-        fun();
 
     });
 
@@ -196,7 +200,13 @@ $(function(){
                 obj[str] = true;
             }
         }
-        return Object.keys(obj);
+        var length = 0;
+        for(var data in obj){
+        if(obj.hasOwnProperty(data))
+            length++;
+        }
+        console.log(length)
+        return length;
     };
 
     function lenSpan(sp){
